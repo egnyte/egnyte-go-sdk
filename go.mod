@@ -2,7 +2,7 @@ module github.com/egnyte/egnyte-go-sdk
 
 require (
 	github.com/google/uuid v1.3.0
-	github.com/helloeave/json v1.13.0
+	github.com/homelight/json v1.18.5
 	github.com/spf13/cobra v1.6.1
 	golang.org/x/oauth2 v0.2.0
 )
@@ -16,4 +16,4 @@ require (
 	google.golang.org/protobuf v1.28.0 // indirect
 )
 
-go 1.17
+go 1.18

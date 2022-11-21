@@ -15,7 +15,7 @@ import (
 	// lib encoding/json to incorporate similar functionality
 	// https://go-review.googlesource.com/c/go/+/205897/ is a proposed
 	// implementation for the same
-	helloeaveJson "github.com/helloeave/json"
+	helloeaveJson "github.com/homelight/json"
 )
 
 // NewClient takes a http.Client, a root URL, and an auth token as
