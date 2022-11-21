@@ -14,7 +14,7 @@ var accessToken string
 
 // Test Create folder
 func TestCreateFolder(t *testing.T) {
-	fmt.Println(Config)
+
 	client, err := NewClient(context.Background(), Config["domain"], Config["accessToken"], http.DefaultClient)
 	if err != nil {
 		t.Errorf("%s", err)

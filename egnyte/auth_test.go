@@ -26,7 +26,6 @@ func init() {
 	// we unmarshal our byteArray which contains our
 	// jsonFile's content into 'users' which we defined above
 	json.Unmarshal(byteValue, &Config)
-	fmt.Println(Config)
 	/* load test data */
 	Config["RootPath"] = "/Shared/test/"
 
@@ -36,7 +35,6 @@ func init() {
 func TestGetAccessToken(t *testing.T) {
 	if _, ok := Config["accessToken"]; ok {
 		resp, err := GetAccessToken(context.Background(), Config)
-		fmt.Println(resp)
 		if err != nil {
 			t.Errorf("%s", err)
 		}
