@@ -4,7 +4,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/homelight/json v1.18.5
 	github.com/spf13/cobra v1.6.1
-	golang.org/x/oauth2 v0.2.0
+	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
 )
 
 require (
