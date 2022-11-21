@@ -109,11 +109,6 @@ Examples
 
 Full documentation
 ==================
-
-You can read the documentation at http://egnyte.github.io/go-egnyte/
-
-or
-
 Generate document locally
 
 ```
@@ -183,9 +178,6 @@ about how to generate access token.
 
 Helping with development
 ========================
-
-Please report any problems you find to
-api-support@egnyte.com or pint@egnyte.com
 
 If you'd like to fix something yourself, please fork this repository,
 commit the fixes and updates to tests, then set up a pull request with
