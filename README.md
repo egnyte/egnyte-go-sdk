@@ -109,11 +109,9 @@ Examples
 
 Full documentation
 ==================
-Generate document locally
+You can read the documentation at https://egnyte.github.io/egnyte-go-sdk/ and https://pkg.go.dev/github.com/egnyte/egnyte-go-sdk
 
-```
-godoc -http=:6060 & open http://localhost:6060/pkg/github.com/egnyte/egnyte-go-sdk/egnyte
-```
+
 
 Command line
 ============
