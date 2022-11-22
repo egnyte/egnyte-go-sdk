@@ -20,7 +20,6 @@ type ChunkUploadInfo struct {
 	lastChunk      []byte
 }
 
-// Init chunk for a given file
 func (c *ChunkUploadInfo) Init(data io.Reader, size int64, chunkSize int64) {
 	c.checkSumMap = make(map[int]string)
 	c.data = data
@@ -28,6 +27,13 @@ func (c *ChunkUploadInfo) Init(data io.Reader, size int64, chunkSize int64) {
 	c.chunkSize = chunkSize
 	c.chunkNum = 0
 	c.lastChunk = nil
+
+}
+
+func (c *ChunkUploadInfo) GetRemainingBytes() int64 {
+	c.dataMutex.Lock()
+	defer c.dataMutex.Unlock()
+	return c.remainingBytes
 }
 
 // GetChunk returns chunk
@@ -57,6 +63,8 @@ func (c *ChunkUploadInfo) GetChunk() ([]byte, int64, int, error) {
 }
 
 func (c *ChunkUploadInfo) GetLastChunk() ([]byte, int) {
+	c.dataMutex.Lock()
+	defer c.dataMutex.Unlock()
 	return c.lastChunk, c.chunkNum
 }
 
@@ -66,8 +74,8 @@ func (c *ChunkUploadInfo) SetChunkCheckSum(chunkNum int, csum string) {
 	c.checkSumMap[chunkNum] = csum
 }
 
-// GetResultChecksum return final check sum of all chunks
-func (c *ChunkUploadInfo) GetResultChecksum() string {
+// GetResultCsum return final check sum of all chunks
+func (c *ChunkUploadInfo) GetResultCsum() string {
 	c.resultMutex.Lock()
 	defer c.resultMutex.Unlock()
 	res := ""
