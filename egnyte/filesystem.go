@@ -66,7 +66,8 @@ func (o *Object) parseModTime() error {
 // creates a file
 func (o *Object) createFile(ctx context.Context) (*Object, error) {
 	uri := fmt.Sprintf(URI_GET_FILE, o.Path)
-	modTime := o.ModTime.Format(ModTimeLayout)
+	utcLocation, _ := time.LoadLocation("UTC")
+	modTime := fmt.Sprintf("%s GMT", o.ModTime.In(utcLocation).Format(TimeFormat))
 	opts := &requestOptions{
 		Method: "POST",
 		Path:   uri,
@@ -185,6 +186,12 @@ func (o *Object) List(ctx context.Context) (*Object, error) {
 
 func (o *Object) ChunkUpload(ctx context.Context, uploadInfo *UploadInfo, extraHeaders map[string]string) error {
 	uri := fmt.Sprintf(URI_CHUNKED_UPLOAD, o.Path)
+
+	utcLocation, _ := time.LoadLocation("UTC")
+	modTime := fmt.Sprintf("%s GMT", o.ModTime.In(utcLocation).Format(TimeFormat))
+	if extraHeaders != nil {
+		extraHeaders["Last-Modified"] = modTime
+	}
 	opts := &requestOptions{
 		Method:       "POST",
 		Path:         uri,
@@ -198,6 +205,7 @@ func (o *Object) ChunkUpload(ctx context.Context, uploadInfo *UploadInfo, extraH
 	if uploadInfo.UploadID == "" {
 		uploadInfo.UploadID = resp.Header.Get("X-Egnyte-Upload-Id")
 	}
+
 	return nil
 }
 
