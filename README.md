@@ -1,185 +1,67 @@
-Egnyte SDK
-==========
+# Egnyte Go SDK
 
-This is the official Go client library for Egnyte's Public APIs.
-For overview of the HTTP API, go to https://developers.egnyte.com
+The official Go client libraries for the [Egnyte Public API](https://developers.egnyte.com).
 
-Getting an API key
-==================
+## Version 2
 
-Register on https://developers.egnyte.com/member/register to get API key
-for your Egnyte account. This key is required to generate an Egnyte OAuth
-token.
+Version 2 is the actively maintained SDK and is strongly recommended for all
+new and existing integrations. It covers the Content & File Services API
+surface with around 150 endpoints across 30 services.
 
-Examples
-========
+**v2 is dependency-free:** it uses only the Go standard library and has no
+third-party runtime dependencies. The dependencies listed in the repository's
+root `go.mod` belong only to the unsupported legacy SDK; v2 is an independent
+module defined by `v2/go.mod`.
 
-* Include this library
-
-```
-    import "github.com/egnyte/egnyte-go-sdk/egnyte"
-```    
-
-
-* Generate an access token
-
-```
-    config := map[string]string{"api_key": "API_KEY", "<username>": "<UserName>", "password": "<PASSWORD>", "domain": "<DOMAIN>"}
-    egnyte.GetAccessToken(context.Background(), Config)
+```bash
+go get github.com/egnyte/egnyte-go-sdk/v2
 ```
 
-* Create a client object
+```go
+package main
 
-```
-   client = egnyte.NewClient(context.Background(), "domain", "accessToken")
-```  
+import (
+	"context"
+	"log"
 
+	"github.com/egnyte/egnyte-go-sdk/v2"
+)
 
-
-* Create a folder
-
-```
-   folderObj := Object{
-		Client:   client,
-		Path:     <DestinationFolderPath>,
-		IsFolder: true,
-   }
-   folder = folderObj.create(context.Background())
-```
-
-
-* Delete a folder
-```
-    folderObj := Object{
-		Client:   client,
-		Path:     <DestinationFolderPath>,
-		IsFolder: true,
+func main() {
+	client, err := egnyte.NewClient("acme", egnyte.WithToken("YOUR_ACCESS_TOKEN"))
+	if err != nil {
+		log.Fatal(err)
 	}
-    folderObj.delete()
-```
 
-* Get a list of files in a folder, download a file
-```
-    folder = client.object(<DestinationFolderPath>).list(ctx)
-    for file_obj in folder.files:
-        with file_obj.Get(context.Background()) as download:
-            data = download.read()
-      
-```
-
-* Get a list of files in a subfolders
-```
-    folder = client.object(<DestinationFolderPath>).list(ctx)
-    for folder_obj in folder.folders:
-        do_something(folder_obj)
-        
-```
-
-* Upload a new file from local file
-
-```
-    in, err := os.OpenFile(<SourceFilePath>, os.O_RDWR, 0666)
-	fileInfo, err := in.Stat()
-	fileObj := Object{
-		Client:  client,
-		Path:    <DestinationFilePath>,
-		Body:    in,
-		Size:    int(fileInfo.Size()),
-		ModTime: fileInfo.ModTime(),
+	folder, _, err := client.FileSystem.Get(context.Background(), "/Shared", nil)
+	if err != nil {
+		log.Fatal(err)
 	}
-	fileObj.Create(context.Background())
+	log.Printf("found %d files", len(folder.Files))
+}
 ```
 
-* Delete a file
+The import path ends in `/v2`, but the package name remains `egnyte`, so SDK
+symbols are used as `egnyte.NewClient`, `egnyte.WithToken`, and so on.
 
-```
-   fileObj.Delete(context.Background())
-```
+See the [v2 documentation](v2/README.md), [migration guide](MIGRATING_TO_V2.md),
+and [v2 package documentation](https://pkg.go.dev/github.com/egnyte/egnyte-go-sdk/v2).
 
-* Download a file
-```
-   fileObj.Get(context.Background())
-```
+## Legacy SDK
 
-* Get Event Cursor
-````
-   event = client.EventCursor(context.Background())
-````
+The original SDK remains available at
+`github.com/egnyte/egnyte-go-sdk/egnyte` so existing applications continue to
+build. It is no longer supported or actively maintained. Users should migrate
+to v2, especially for new development, bug fixes, and access to the broader API
+surface.
 
+See the [migration guide](MIGRATING_TO_V2.md) for the principal API changes.
 
-Full documentation
-==================
-You can read the documentation at https://egnyte.github.io/egnyte-go-sdk/ and https://pkg.go.dev/github.com/egnyte/egnyte-go-sdk
+## Support and contributions
 
+Please open a GitHub issue for bug reports and feature requests. Contributions
+to v2 should follow the [v2 contribution guide](v2/CONTRIBUTING.md).
 
+## License
 
-Command line
-============
-
-If you're using implicit flow, you'll need to provide access token directly.
-If you're using API token with resource flow, you can generate API access token using command line options.
-See the full documentation or build, then use:
-
-```
-   egnyte --help
-```   
-
-
-Create a build
-==============
-
-```
-   go build -o egnyte 
-```
-
-
-Create configuration
-====================
-
-Configuration file will be created in config.json
-
-```
-
-   egnyte create_config -c [API_KEY] -d [DOMAIN] -p [PASSWORD] -u [USERNAME]
-```
-
-
-
-Running tests
-=============
-
-Tests can be run with directly on the egnyte package
-
-```
-   go test -v
-```
-
-    
-
-In order to run tests, you need to create test configuration file: ~/.egnyte/test_config.json
-
-```
-
-    {
-        "access_token": "access token you received after passing the auth flow", 
-        "api_key": "key received after registering developer account",
-        "domain": "Egnyte domain, e.g. example.egnyte.com",
-        "username": "username of Egnyte admin user", 
-        "password": "password of the same Egnyte admin user"
-    }
-```
-
-Tests will be run against your domain on behalf on admin user.
-
-Please refer to https://developers.egnyte.com/docs/read/Public_API_Authentication#Internal-Applications for information
-about how to generate access token.
-
-Helping with development
-========================
-
-If you'd like to fix something yourself, please fork this repository,
-commit the fixes and updates to tests, then set up a pull request with
-information what you're fixing.
-
-Please remember to assign copyright of your fixes to Egnyte or make them
-public domain so we can legally merge them.
+[MIT](LICENSE.md)

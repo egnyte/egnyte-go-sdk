@@ -1,26 +1,74 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
-
 name: Go
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
+
+permissions:
+  contents: read
 
 jobs:
-
-  build:
+  legacy:
+    name: Legacy SDK (Go 1.18)
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with:
+          go-version: "1.18.x"
+          cache-dependency-path: go.sum
+      - name: Build legacy SDK
+        run: go build ./...
+      - name: Vet legacy SDK
+        run: go vet ./...
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.18
+  v2:
+    name: v2 SDK (Go ${{ matrix.go }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        go: ["1.24.x", "stable"]
+    defaults:
+      run:
+        working-directory: v2
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with:
+          go-version: ${{ matrix.go }}
+          cache: false
+      - name: Check formatting
+        run: test -z "$(gofmt -l .)"
+      - name: Vet
+        run: go vet ./...
+      - name: Test
+        run: go test -race ./...
+      - name: Build examples
+        run: go build ./examples/...
 
-    - name: Build
-      run: go build -v ./...
-
+  coexistence:
+    name: Legacy and v2 coexistence
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with:
+          go-version: "stable"
+          cache: false
+      - name: Compile a consumer importing both SDKs
+        shell: bash
+        run: |
+          temp_dir="$(mktemp -d)"
+          trap 'rm -rf "$temp_dir"' EXIT
+          cp .github/testdata/coexistence/main.go "$temp_dir/main.go"
+          cd "$temp_dir"
+          go mod init example.com/egnyte-sdk-coexistence
+          go mod edit -require=github.com/egnyte/egnyte-go-sdk@v0.0.0
+          go mod edit -require=github.com/egnyte/egnyte-go-sdk/v2@v2.0.0
+          go mod edit -replace=github.com/egnyte/egnyte-go-sdk="$GITHUB_WORKSPACE"
+          go mod edit -replace=github.com/egnyte/egnyte-go-sdk/v2="$GITHUB_WORKSPACE/v2"
+          go mod tidy
+          go build ./...
