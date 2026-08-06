@@ -10,7 +10,8 @@ import (
 // WebhooksService registers and manages webhook callbacks that deliver
 // event notifications to your application.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/webhooks-api
+// OAuth scope: Egnyte.webhooks.
 type WebhooksService service
 
 // Webhook is a webhook registration summary.

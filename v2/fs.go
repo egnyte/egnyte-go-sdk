@@ -13,7 +13,9 @@ import (
 
 // FileSystemService handles browsing and manipulating files and folders.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/file-system-management
+// OAuth scope: Egnyte.filesystem. Access to individual items follows the
+// authenticated user's file and folder permissions.
 type FileSystemService service
 
 // FolderEntry describes a folder inside a listed folder. Folders report

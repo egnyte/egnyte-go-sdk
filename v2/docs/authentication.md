@@ -53,7 +53,9 @@ revoking an access token also revokes its refresh token.
 ## Scopes
 
 Scope tokens to only what the application needs (required for
-production approval of third-party apps): `Egnyte.filesystem`,
+production approval of third-party apps). See the
+[developer portal OAuth scope matrix](https://developers.egnyte.com/integration/cfs/api-docs/authentication#oauth-scopes)
+for the APIs covered by each scope: `Egnyte.filesystem`,
 `Egnyte.link`, `Egnyte.permission`, `Egnyte.user`, `Egnyte.group`,
 `Egnyte.audit`, `Egnyte.webhooks`, `Egnyte.ai`, `Egnyte.sign`,
 `Egnyte.documentportal`, `Egnyte.uploadrequests`, `Egnyte.etmf`,

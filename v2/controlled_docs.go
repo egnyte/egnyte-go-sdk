@@ -10,7 +10,8 @@ import (
 // the Controlled Document Management app. Requires an Admin or Category
 // Manager role.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/controlled-document-management-api
+// OAuth scope: Egnyte.controlleddocs.
 type ControlledDocsService service
 
 // ImportControlledDocumentRequest imports a document or a new version of

@@ -10,7 +10,8 @@ import (
 // ETMFService accesses electronic Trial Master File studies, filing
 // levels, artifacts and documents. Requires the Egnyte.etmf scope.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/etmf-api
+// OAuth scope: Egnyte.etmf.
 type ETMFService service
 
 // ETMFStudy is one clinical study.

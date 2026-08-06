@@ -11,7 +11,9 @@ import (
 // LinksService handles creating, listing, retrieving and deleting
 // shareable file and folder links.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/links-api
+// OAuth scope: Egnyte.link. Non-administrators can list only links they
+// created; administrators can list links across the domain.
 type LinksService service
 
 // Link describes an existing link.

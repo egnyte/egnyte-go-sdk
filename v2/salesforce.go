@@ -10,7 +10,8 @@ import (
 // SalesforceService looks up the Egnyte folders mapped to Salesforce
 // records (read-only). Requires the Egnyte.salesforce scope.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/third-party-integrations#egnyte-for-salesforce
+// OAuth scope: Egnyte.salesforce.
 type SalesforceService service
 
 // SalesforceFolderMap is the Egnyte folder mapped to a Salesforce record.

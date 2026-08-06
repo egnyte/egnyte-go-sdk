@@ -9,8 +9,8 @@ import (
 // that open the Egnyte Web UI, optionally as an embedded view. Requires
 // the Egnyte.launchwebsession scope.
 //
-// API documentation: https://developers.egnyte.com/docs
-// (embedded_ui_api_prod_final.yaml documents the same endpoints)
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/navigate-api
+// OAuth scope: Egnyte.launchwebsession.
 type NavigateService service
 
 // Navigate returns a one-time URL that opens the Egnyte Web UI. With

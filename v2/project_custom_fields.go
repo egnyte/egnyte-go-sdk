@@ -11,7 +11,9 @@ import (
 // projects. Requires the Projects feature and customized project
 // metadata enabled on the domain.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/project-custom-metadata-api
+// Authentication requires an OAuth bearer token. The published OAuth scope
+// table does not list a dedicated Project Custom Fields scope.
 type ProjectCustomFieldsService service
 
 // ProjectCustomField is one custom field definition.

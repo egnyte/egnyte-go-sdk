@@ -8,7 +8,8 @@ import (
 
 // InsightsService returns activity insights for the authenticated user.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/user-insights-api
+// OAuth scope: Egnyte.filesystem.
 type InsightsService service
 
 // RecentFile is one recently accessed file.

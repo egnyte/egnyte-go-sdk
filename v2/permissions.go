@@ -10,7 +10,9 @@ import (
 
 // PermissionsService manages folder access control for users and groups.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/permissions-api
+// OAuth scope: Egnyte.permission. Modifying a folder requires Owner access or
+// an administrator token.
 type PermissionsService service
 
 // PermissionLevel is the access level assigned to a user or group.

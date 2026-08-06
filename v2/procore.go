@@ -13,7 +13,9 @@ import (
 // needs Egnyte.launchwebsession), and Egnyte's DMSA key must be verified
 // once per company via the Egnyte WebUI.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/third-party-integrations#egnyte-for-procore-integration
+// OAuth scope: Egnyte.integrations; creating a sync additionally requires
+// Egnyte.launchwebsession.
 type ProcoreService service
 
 // ProcoreSkippedFile is a file the sync skipped due to an error.

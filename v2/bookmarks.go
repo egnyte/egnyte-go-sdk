@@ -10,7 +10,8 @@ import (
 
 // BookmarksService marks folders for quick access in the Web UI.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/bookmarks-api
+// OAuth scope: Egnyte.bookmark.
 type BookmarksService service
 
 // Bookmark marks one folder.

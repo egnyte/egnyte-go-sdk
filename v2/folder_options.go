@@ -19,7 +19,8 @@ type FolderEmailPreferences struct {
 // FolderOptions modify a folder's settings. At least one field must be
 // set.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/folder-options-api
+// OAuth scope: Egnyte.filesystem.
 type FolderOptions struct {
 	// FolderDescription is a text description (max 200 characters).
 	FolderDescription string `json:"folder_description,omitempty"`

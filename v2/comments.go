@@ -11,7 +11,9 @@ import (
 // CommentsService annotates files and folders with comments (also called
 // notes — the API path is /v1/notes).
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/comments-api
+// OAuth scope: Egnyte.filesystem. Listing comments across the entire domain
+// requires an administrator; file-scoped operations follow file permissions.
 type CommentsService service
 
 // Comment is one comment (note) on a file or folder.

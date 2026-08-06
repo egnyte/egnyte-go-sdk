@@ -12,7 +12,12 @@ import (
 // AuditService generates audit reports (v1, asynchronous jobs) and
 // streams near-real-time audit events (v2).
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation:
+//   - v1 reports: https://developers.egnyte.com/integration/cfs/api-docs/audit-reporting-api/v1
+//   - v2 stream: https://developers.egnyte.com/integration/cfs/api-docs/audit-reporting-api/v2
+//
+// OAuth scope: Egnyte.audit. The authenticated user must be an administrator
+// or a power user allowed to run reports.
 type AuditService service
 
 // AuditReportRequest carries the fields common to every v1 report:

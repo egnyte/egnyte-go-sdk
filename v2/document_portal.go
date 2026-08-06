@@ -9,7 +9,8 @@ import (
 // DocumentPortalService manages Document Portal workspaces. Requires the
 // Egnyte.documentportal scope.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/document-portal-api
+// OAuth scope: Egnyte.documentportal.
 type DocumentPortalService service
 
 // WorkspaceCreator identifies the user who created a workspace.

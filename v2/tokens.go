@@ -8,7 +8,11 @@ import (
 
 // TokensService handles inspection and revocation of OAuth tokens.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation:
+//   - user info: https://developers.egnyte.com/integration/cfs/api-docs/authentication#get-user-info-for-an-oauth-token
+//   - revocation: https://developers.egnyte.com/integration/cfs/api-docs/authentication#revoke-an-oauth-token
+//
+// These operations do not require a dedicated resource scope.
 type TokensService service
 
 // UserInfo describes the user an OAuth token belongs to.

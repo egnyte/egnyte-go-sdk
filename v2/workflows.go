@@ -10,7 +10,9 @@ import (
 
 // WorkflowsService orchestrates review and approval processes on files.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/workflow-api
+// OAuth scope: Egnyte.filesystem. File permissions and workflow role rules
+// still apply.
 type WorkflowsService service
 
 // WorkflowUser identifies a workflow participant.

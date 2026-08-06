@@ -9,7 +9,9 @@ import (
 
 // AgentsService runs custom AI agents configured in the domain.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/agent-api
+// OAuth scope: Egnyte.ai. The Agents feature must also be enabled for the
+// domain.
 type AgentsService service
 
 // AIAgent is one configured agent.

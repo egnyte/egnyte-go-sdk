@@ -11,7 +11,9 @@ import (
 // account: webhooks, customer domains, Protect tenants, plans, power
 // user pools and trials.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/msp-api
+// Authentication uses the MSP-specific OAuth setup documented there; this API
+// is available only to approved MSP partners and has no general CFS scope.
 type MSPService service
 
 // MSPWebhook is a webhook registration summary.

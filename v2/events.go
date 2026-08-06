@@ -12,7 +12,8 @@ import (
 // event stream. The API retains up to 500,000 events or 30 days,
 // whichever is smaller; poll no more often than every five minutes.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/events-api
+// OAuth scope: Egnyte.filesystem.
 type EventsService service
 
 // EventCursor is the starting point for polling the event stream.

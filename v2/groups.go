@@ -11,7 +11,8 @@ import (
 // GroupsService manages custom groups via Egnyte's SCIM 2.0 endpoints.
 // All operations require an administrator token.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/group-management
+// OAuth scope: Egnyte.group.
 type GroupsService service
 
 // scimPatchOpSchema is the SCIM 2.0 schema URN required in PatchOp bodies.

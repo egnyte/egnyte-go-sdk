@@ -10,7 +10,10 @@ import (
 // MetadataService manages custom metadata namespaces, keys and the
 // metadata values attached to files, file versions and folders.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/metadata-api
+// Authentication requires an OAuth bearer token. The published OAuth scope
+// table does not list a dedicated Metadata scope; namespace visibility and
+// modification rules still apply.
 type MetadataService service
 
 // MetadataKey defines one key inside a namespace.

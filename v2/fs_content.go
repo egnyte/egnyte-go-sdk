@@ -15,7 +15,9 @@ import (
 
 // FileSystemContentService handles downloading and uploading file contents.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/file-system-management
+// OAuth scope: Egnyte.filesystem. Access to individual items follows the
+// authenticated user's file and folder permissions.
 type FileSystemContentService service
 
 // UploadResult is the metadata returned after a successful upload.

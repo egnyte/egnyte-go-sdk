@@ -11,7 +11,8 @@ import (
 // SignService manages e-signature workflows: templates, signature
 // requests and agreements.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/sign-api
+// OAuth scope: Egnyte.sign.
 type SignService service
 
 // SignTemplateDocument is one document configured in a template.

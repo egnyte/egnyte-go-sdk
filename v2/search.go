@@ -12,7 +12,9 @@ import (
 // SearchService finds files and folders by filename, content and
 // metadata. Results are scoped to what the authenticated user may access.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/search-api
+// OAuth scope: Egnyte.filesystem. Results are limited to content accessible
+// to the authenticated user.
 type SearchService service
 
 // CustomProperty is one namespace/key/value tuple attached to a result.

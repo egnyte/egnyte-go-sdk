@@ -12,7 +12,9 @@ import (
 // Requires an administrator or a power user with trash management
 // privileges.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/trash-api
+// OAuth scope: Egnyte.filesystem. Access additionally requires an
+// administrator or a power user with trash management privileges.
 type TrashService service
 
 // TrashItemOwner identifies the owner of a trashed file.

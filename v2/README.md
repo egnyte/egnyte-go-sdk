@@ -130,6 +130,9 @@ Runnable programs live in [examples/](examples/):
 |---|---|
 | [authentication](examples/authentication/) | Obtaining, using and restoring an OAuth token without printing it |
 | [quickstart](examples/quickstart/) | Authentication, folder listing, rate-limit readout |
+| [search](examples/search/) | Searching by keyword, optionally within a folder |
+| [users-list](examples/users-list/) | Listing users and filtering by username (administrator token required) |
+| [comments](examples/comments/) | Adding, listing and cleaning up a file or folder comment |
 | [upload-download](examples/upload-download/) | Streaming upload, share link, download round-trip |
 | [events-watch](examples/events-watch/) | Tailing the domain event stream with a cursor |
 | [audit-report](examples/audit-report/) | Async report jobs: create → poll → fetch results |
@@ -137,23 +140,42 @@ Runnable programs live in [examples/](examples/):
 
 ## Services
 
-| Client field | API | Client field | API |
-|---|---|---|---|
-| `AI` | AI (Q&A, assistant, KBs, hybrid search) | `Metadata` | Custom metadata namespaces & values |
-| `Agents` | Custom AI agents | `MSP` | Reseller/MSP management |
-| `Audit` | Audit reports (v1) & event stream (v2) | `Navigate` | One-time Web UI URLs |
-| `Bookmarks` | Folder bookmarks | `Permissions` | Folder permissions |
-| `Comments` | File/folder comments (notes) | `Procore` | Procore integration |
-| `ControlledDocs` | Controlled document imports | `ProjectCustomFields` | Project metadata fields |
-| `DocumentPortal` | Document Portal workspaces | `ProjectFolders` | Project folders |
-| `ETMF` | electronic Trial Master File | `Salesforce` | Salesforce folder mapping |
-| `Events` | Domain event polling | `Search` | Keyword & metadata search |
-| `FileSystem` | Files/folders (+ folder options) | `Sign` | E-signature requests |
-| `FileSystemContent` | Upload/download (incl. chunked) | `Tokens` | Token introspection/revocation |
-| `Groups` | Group management (SCIM) | `Trash` | Trash listing/restore/purge |
-| `Insights` | Recently accessed files | `UploadRequests` | Document collection requests |
-| `Links` | Share links | `Users` | User management (SCIM) |
-| `Workflows` | Review/approval workflows & tasks | `Webhooks` | Webhook registrations |
+The required scopes below follow the developer portal's
+[OAuth scope matrix](https://developers.egnyte.com/integration/cfs/api-docs/authentication#oauth-scopes).
+Feature availability and user permissions may impose additional restrictions.
+
+| Client field | API reference | OAuth scope |
+|---|---|---|
+| `AI` | [AI](https://developers.egnyte.com/integration/cfs/api-docs/ai-api) | `Egnyte.ai` |
+| `Agents` | [Agents](https://developers.egnyte.com/integration/cfs/api-docs/agent-api) | `Egnyte.ai` |
+| `Audit` | [Audit v1](https://developers.egnyte.com/integration/cfs/api-docs/audit-reporting-api/v1), [Audit v2](https://developers.egnyte.com/integration/cfs/api-docs/audit-reporting-api/v2) | `Egnyte.audit` |
+| `Bookmarks` | [Bookmarks](https://developers.egnyte.com/integration/cfs/api-docs/bookmarks-api) | `Egnyte.bookmark` |
+| `Comments` | [Comments](https://developers.egnyte.com/integration/cfs/api-docs/comments-api) | `Egnyte.filesystem` |
+| `ControlledDocs` | [Controlled Document Management](https://developers.egnyte.com/integration/cfs/api-docs/controlled-document-management-api) | `Egnyte.controlleddocs` |
+| `DocumentPortal` | [Document Portal](https://developers.egnyte.com/integration/cfs/api-docs/document-portal-api) | `Egnyte.documentportal` |
+| `ETMF` | [eTMF](https://developers.egnyte.com/integration/cfs/api-docs/etmf-api) | `Egnyte.etmf` |
+| `Events` | [Events](https://developers.egnyte.com/integration/cfs/api-docs/events-api) | `Egnyte.filesystem` |
+| `FileSystem` | [File System](https://developers.egnyte.com/integration/cfs/api-docs/file-system-management), [Folder Options](https://developers.egnyte.com/integration/cfs/api-docs/folder-options-api) | `Egnyte.filesystem` |
+| `FileSystemContent` | [File System content](https://developers.egnyte.com/integration/cfs/api-docs/file-system-management) | `Egnyte.filesystem` |
+| `Groups` | [Group Management](https://developers.egnyte.com/integration/cfs/api-docs/group-management) | `Egnyte.group` |
+| `Insights` | [User Insights](https://developers.egnyte.com/integration/cfs/api-docs/user-insights-api) | `Egnyte.filesystem` |
+| `Links` | [Links](https://developers.egnyte.com/integration/cfs/api-docs/links-api) | `Egnyte.link` |
+| `Metadata` | [Metadata](https://developers.egnyte.com/integration/cfs/api-docs/metadata-api) | No dedicated scope listed |
+| `MSP` | [MSP](https://developers.egnyte.com/integration/cfs/api-docs/msp-api) | MSP partner OAuth |
+| `Navigate` | [Navigate](https://developers.egnyte.com/integration/cfs/api-docs/navigate-api) | `Egnyte.launchwebsession` |
+| `Permissions` | [Permissions](https://developers.egnyte.com/integration/cfs/api-docs/permissions-api) | `Egnyte.permission` |
+| `Procore` | [Egnyte for Procore](https://developers.egnyte.com/integration/cfs/api-docs/third-party-integrations#egnyte-for-procore-integration) | `Egnyte.integrations`; create also needs `Egnyte.launchwebsession` |
+| `ProjectCustomFields` | [Project Custom Metadata](https://developers.egnyte.com/integration/cfs/api-docs/project-custom-metadata-api) | No dedicated scope listed |
+| `ProjectFolders` | [Project Folders](https://developers.egnyte.com/integration/cfs/api-docs/project-folder-api) | `Egnyte.projectfolders` |
+| `Salesforce` | [Egnyte for Salesforce](https://developers.egnyte.com/integration/cfs/api-docs/third-party-integrations#egnyte-for-salesforce) | `Egnyte.salesforce` |
+| `Search` | [Search](https://developers.egnyte.com/integration/cfs/api-docs/search-api) | `Egnyte.filesystem` |
+| `Sign` | [Egnyte Sign](https://developers.egnyte.com/integration/cfs/api-docs/sign-api) | `Egnyte.sign` |
+| `Tokens` | [User info](https://developers.egnyte.com/integration/cfs/api-docs/authentication#get-user-info-for-an-oauth-token), [token revocation](https://developers.egnyte.com/integration/cfs/api-docs/authentication#revoke-an-oauth-token) | No dedicated resource scope |
+| `Trash` | [Trash](https://developers.egnyte.com/integration/cfs/api-docs/trash-api) | `Egnyte.filesystem` |
+| `UploadRequests` | [Upload Requests](https://developers.egnyte.com/integration/cfs/api-docs/upload-requests-api) | `Egnyte.uploadrequests` |
+| `Users` | [User Management](https://developers.egnyte.com/integration/cfs/api-docs/user-management-api) | `Egnyte.user` |
+| `Webhooks` | [Webhooks](https://developers.egnyte.com/integration/cfs/api-docs/webhooks-api) | `Egnyte.webhooks` |
+| `Workflows` | [Workflows](https://developers.egnyte.com/integration/cfs/api-docs/workflow-api) | `Egnyte.filesystem` |
 
 ## Errors and rate limits
 

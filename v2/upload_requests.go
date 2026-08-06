@@ -9,7 +9,8 @@ import (
 // UploadRequestsService sends document collection requests to internal
 // or external users. Requires the Egnyte.uploadrequests scope.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/upload-requests-api
+// OAuth scope: Egnyte.uploadrequests.
 type UploadRequestsService service
 
 // UploadRequestTemplate is a reusable upload request definition.

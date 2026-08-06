@@ -14,7 +14,9 @@ import (
 // carry additional metadata (status, dates, location, custom fields) and
 // can create dynamic groups.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/project-folder-api
+// OAuth scope: Egnyte.projectfolders. Project functionality must also be
+// enabled for the domain.
 type ProjectFoldersService service
 
 // ProjectLocation is the physical location of a project.

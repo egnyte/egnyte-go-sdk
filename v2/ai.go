@@ -13,7 +13,8 @@ import (
 // summaries, the AI Assistant, knowledge bases and hybrid search. AI
 // endpoints have separate, lower rate limits.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/ai-api
+// OAuth scope: Egnyte.ai.
 type AIService service
 
 // ChatMessage is one message of a conversation history.

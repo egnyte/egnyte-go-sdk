@@ -11,7 +11,8 @@ import (
 // UsersService manages users via Egnyte's SCIM-style endpoints. All
 // operations require an administrator token.
 //
-// API documentation: https://developers.egnyte.com/docs
+// API documentation: https://developers.egnyte.com/integration/cfs/api-docs/user-management-api
+// OAuth scope: Egnyte.user.
 type UsersService service
 
 // UserName is the SCIM name attribute of a user.
