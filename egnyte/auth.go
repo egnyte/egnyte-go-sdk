@@ -7,6 +7,15 @@ import (
 	"golang.org/x/oauth2"
 )
 
+// Engyte credentials
+type EgnyteConfig struct {
+	ClientID     string
+	ClientSecret string
+	Username     string
+	Password     string
+	Domain       string
+}
+
 // OAuth Scopes
 const (
 	FilesystemScope       = "Egnyte.filesystem"
@@ -29,8 +38,12 @@ func OAuthEndpoint(domain string) oauth2.Endpoint {
 
 // GetAccessToken return auth token with grant type password
 // This returns err if invalid details is provided else return auth token
-func GetAccessToken(ctx context.Context, config map[string]string) (*oauth2.Token, error) {
-	endpoint := OAuthEndpoint(config["domain"])
-	oauthConfig := oauth2.Config{ClientID: config["api_key"], Endpoint: endpoint}
-	return oauthConfig.PasswordCredentialsToken(ctx, config["username"], config["password"])
+func GetAccessToken(ctx context.Context, config EgnyteConfig) (*oauth2.Token, error) {
+	endpoint := OAuthEndpoint(config.Domain)
+	oauthConfig := oauth2.Config{
+		ClientID:     config.ClientID,
+		Endpoint:     endpoint,
+		ClientSecret: config.ClientSecret,
+	}
+	return oauthConfig.PasswordCredentialsToken(ctx, config.Username, config.Password)
 }

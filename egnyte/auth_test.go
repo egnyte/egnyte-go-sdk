@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-var Config map[string]string
+var Config EgnyteConfig
 
 func init() {
 	dirname, err := os.UserHomeDir()
@@ -27,13 +27,13 @@ func init() {
 	// jsonFile's content into 'users' which we defined above
 	json.Unmarshal(byteValue, &Config)
 	/* load test data */
-	Config["RootPath"] = "/Shared/test/"
+	// Config["RootPath"] = "/Shared/test/"
 
 }
 
 // TestGetAccessToken
 func TestGetAccessToken(t *testing.T) {
-	if _, ok := Config["accessToken"]; ok {
+	if _, ok := os.LookupEnv("EGNYTE_CLIENT_ID"); ok {
 		resp, err := GetAccessToken(context.Background(), Config)
 		if err != nil {
 			t.Errorf("%s", err)

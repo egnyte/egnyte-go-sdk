@@ -1,6 +1,6 @@
 package main
 
-import "github.com/egnyte/egnyte-go-sdk/egnyte"
+import "github.com/beplatform/egnyte-go-sdk/egnyte"
 
 func main() {
 	egnyte.Execute()

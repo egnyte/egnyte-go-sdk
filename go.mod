@@ -1,4 +1,4 @@
-module github.com/egnyte/egnyte-go-sdk
+module github.com/beplatform/egnyte-go-sdk
 
 require (
 	github.com/google/uuid v1.1.1

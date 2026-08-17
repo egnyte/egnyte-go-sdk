@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"encoding/json"
+
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +22,13 @@ var rootCmd = &cobra.Command{
 	Use:   "create_config",
 	Short: "configuration command will create a config.json",
 	Run: func(cmd *cobra.Command, args []string) {
-		config := map[string]string{"api_key": ClientId, "username": Username, "password": Password, "domain": Domain}
+		config := EgnyteConfig{
+			ClientID:     ClientId,
+			ClientSecret: "",
+			Username:     Username,
+			Password:     Password,
+			Domain:       Domain,
+		}
 		token, err := GetAccessToken(context.Background(), config)
 		if err != nil {
 			fmt.Println(err)
