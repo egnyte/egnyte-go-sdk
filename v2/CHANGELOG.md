@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.1.0
+
+- `UploadResult.LatestEntryID`: set when an upload, whole-file or the last
+  chunk of a chunked upload, did not become the current version because its
+  last modified time is earlier than the current version's. It holds the
+  entry ID of the version that is current.
+
 ## v2.0.0 — Unreleased
 
 Initial release — a ground-up implementation covering the CFS Public API
