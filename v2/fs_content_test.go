@@ -117,8 +117,27 @@ func TestFileSystemContentService_Upload(t *testing.T) {
 	if resp.StatusCode != http.StatusCreated {
 		t.Errorf("status = %d, want 201", resp.StatusCode)
 	}
-	if result.EntryID != "e1" || result.GroupID != "g1" || result.Size != 12 {
+	if result.EntryID != "e1" || result.GroupID != "g1" || result.Size != 12 || result.LatestEntryID != "" {
 		t.Errorf("result = %+v", result)
+	}
+}
+
+func TestFileSystemContentService_Upload_notCurrent(t *testing.T) {
+	client, mux := setup(t)
+	mux.HandleFunc("/pubapi/v1/fs-content/Shared/notes.txt", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, http.MethodPost)
+		// Response observed live for an upload dated earlier than the current version.
+		w.Write([]byte(`{"checksum":"abc","group_id":"g1","entry_id":"e2",
+			"latest_entry_id":"e1","path":"/Shared/notes.txt"}`))
+	})
+
+	result, _, err := client.FileSystemContent.Upload(context.Background(), "/Shared/notes.txt",
+		strings.NewReader("old"), &UploadOptions{LastModified: "Sat, 03 Feb 2001 04:05:06 GMT"})
+	if err != nil {
+		t.Fatalf("Upload: %v", err)
+	}
+	if result.EntryID != "e2" || result.LatestEntryID != "e1" {
+		t.Errorf("result = %+v, want EntryID e2 and LatestEntryID e1", result)
 	}
 }
 
@@ -161,7 +180,8 @@ func TestFileSystemContentService_UploadChunkByID_last(t *testing.T) {
 		testHeader(t, r, "X-Egnyte-Upload-Id", "upload-abc")
 		testHeader(t, r, "X-Egnyte-Last-Chunk", "true")
 		testHeader(t, r, "X-Sha512-Checksum", "wholefilehash")
-		w.Write([]byte(`{"path":"/Shared/big.bin","checksum":"wholefilehash","entry_id":"e9","size":300}`))
+		w.Write([]byte(`{"path":"/Shared/big.bin","checksum":"wholefilehash","entry_id":"e9","size":300,
+			"latest_entry_id":"e8"}`))
 	})
 
 	upload, _, err := client.FileSystemContent.UploadChunkByID(context.Background(), "gid9",
@@ -178,7 +198,8 @@ func TestFileSystemContentService_UploadChunkByID_last(t *testing.T) {
 	if upload.UploadID != "upload-abc" {
 		t.Errorf("UploadID = %q", upload.UploadID)
 	}
-	if upload.Result == nil || upload.Result.EntryID != "e9" || upload.Result.Size != 300 {
+	if upload.Result == nil || upload.Result.EntryID != "e9" || upload.Result.Size != 300 ||
+		upload.Result.LatestEntryID != "e8" {
 		t.Errorf("Result = %+v", upload.Result)
 	}
 }

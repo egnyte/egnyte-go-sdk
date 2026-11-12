@@ -29,6 +29,12 @@ type UploadResult struct {
 	GroupID      string `json:"group_id"`
 	LastModified string `json:"last_modified"`
 	Size         int64  `json:"size"`
+	// LatestEntryID is set only when the upload did not become the current
+	// version, and holds the entry ID of the version that is current. Egnyte
+	// keeps the version with the latest modification time current, so an
+	// upload whose last modified time is earlier than the current version's
+	// is stored as an older version.
+	LatestEntryID string `json:"latest_entry_id,omitempty"`
 }
 
 // DownloadOptions control content downloads.
